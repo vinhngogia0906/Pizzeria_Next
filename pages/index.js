@@ -1,9 +1,9 @@
 import PizzaList from '@/components/PizzaList';
 import Head from 'next/head'
 import Featured from "../components/Featured";
+import axios from 'axios';
 
-
-export default function Home() {
+export default function Home({pizzaList}) {
   return (
     <>
       <Head>
@@ -13,7 +13,16 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <Featured />
-      <PizzaList/>
+      <PizzaList pizzaList = {pizzaList}/>
     </>
   )
+}
+
+export const getServerSideProps = async () => {
+  const res = await axios.get("http://localhost:3000/api/products/preston");
+  return {
+    props: {
+      pizzaList: res.data,
+    }
+  }
 }
