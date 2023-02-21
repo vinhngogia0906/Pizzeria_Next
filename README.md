@@ -8,26 +8,35 @@ I use MongoDB cloud, so wherever you run the app, you will get the data I insert
 
 ## Checklist
 
-What I couldn't do: 
-    1. Unit testing
-    2. Prevent the users from ordering from two stores at the same time.
-    3. Edit actions for stores and pizzas in Admin page.
-    4. Micro-services Design Pattern. This project is monolithic.
+What I couldn't do: <br/>
+    1. Unit testing <br/>
+    2. Prevent the users from ordering from two stores at the same time.<br/>
+    3. Edit actions for stores and pizzas in Admin page.<br/>
+    4. Micro-services Design Pattern. This project is monolithic.<br/>
     5. Admin actions on creating or deleting a pizza or a store can display the correct data with having to refresh. 
 
 ## Getting Started
 
-First, run the development server:
+First, install all the NPM package by running the command (from the root folder):
 
 ```bash
-npm run dev
+npm install
+```
+
+Second, run the build command:
+
+```bash
+npm run build
+```
+
+Finally, run start command:
+
+```bash
+npm run start
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
-
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
 
 
 You can access the Admin panel by http://localhost:3000/admin
