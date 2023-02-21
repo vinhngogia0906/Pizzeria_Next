@@ -1,14 +1,15 @@
 import { useState } from "react";
 import styles from "../styles/OrderForm.module.css";
 
-const OrderForm = ({totalPrice, createOrder}) => {
+const OrderForm = ({total, createOrder}) => {
     const [customerName, setCustomerName] = useState("");
     const [customerAddress, setCustomerAddress] = useState("");
     const SubmitOrder = () => {
         createOrder({
             customer: customerName,
             address: customerAddress,
-            total: totalPrice,
+            total: total,
+            status: 0,
             paymentMethod: 0,
         })
     };

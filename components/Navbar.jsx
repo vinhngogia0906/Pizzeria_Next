@@ -4,7 +4,7 @@ import Link from "next/link";
 import { useSelector } from "react-redux";
 
 const Navbar = () => {
-    const quantity = useSelector((state) => state.quantity);
+    const quantity = useSelector((state) => state.cart.quantity);
     return (
         <div className={styles.container}>
             <div className={styles.item}>
