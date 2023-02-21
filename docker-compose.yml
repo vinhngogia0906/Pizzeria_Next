@@ -1,0 +1,21 @@
+services:
+  # auth-backend:
+  #   build:
+  #     context: ./auth-backend
+  #   ports:
+  #     - "3001:3001"
+  #   networks:
+  #     - dev
+     
+  pizzeria_client:
+    build:
+      context: ./Dockerfile
+    volumes:
+      - staticbuild:/app/out
+ 
+  # networks:
+  #   dev:
+  #     driver: bridge
+ 
+  # volumes:
+  #   staticbuild:
