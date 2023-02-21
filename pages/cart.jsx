@@ -1,56 +1,93 @@
-import styles from "../styles/Cart.module.css"
-import Image from "next/image"
+import axios from "axios";
+import styles from "../styles/Cart.module.css";
+import Image from "next/image";
+import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/router";
+import { reset } from "@/redux/cartSlice";
 
 const Cart = () => {
+    const dispatch = useDispatch();
+    const cart = useSelector((state) => state.cart);
+    const router = useRouter();
+    const createOrder = async (data) => {
+        try{
+            const res = await axios.post("http://localhost:3000/api/orders", data);
+            res.status === 201 && router.push("/orders/" + res.data._id);
+            dispatch(reset());
+        }
+        catch(error){
+            console.log(error);
+        }
+    }
+    const SubmitOrder = () => {
+        createOrder({
+            customer: "Mr. Anderson",
+            address: "From inside the Matrix",
+            total: 1.1 * cart.total,
+            paymentMethod: 0,
+        })
+    };
     return (
         <div className={styles.container}>
             <div className={styles.left}>
                 <table className={styles.table}>
-                    <tr className={styles.tableRowHeader}>
-                        <th>Product</th>
-                        <th>Name</th>
-                        <th>Toppings</th>
-                        <th>Price</th>
-                        <th>Quantity</th>
-                        <th>Total</th>
-                    </tr>
-                    <tr className={styles.tableRow}>
-                        <td>
-                            <div className={styles.imageContainer}>
-                                <Image alt="Pizza Image" src="/img/pizza.png" fill style={{objectFit:"cover"}}/>
-                            </div>
-                        </td>
-                        <td>
-                            <span className={styles.prodName}>Capricciosa</span>
-                        </td>
-                        <td>
-                            <span className={styles.prodToppings}>Cheese, Salami</span>
-                        </td>
-                        <td>
-                            <span className={styles.prodPrice}>22</span>
-                        </td>
-                        <td>
-                            <span className={styles.prodQuan}>1</span>
-                        </td>
-                        <td>
-                            <span className={styles.total}>22</span>
-                        </td>
-                    </tr>
+                    <tbody>
+                        <tr className={styles.tableRowHeader}>
+                            <th>Product</th>
+                            <th>Name</th>
+                            <th>Toppings</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                        </tr>
+                    </tbody>
+                    <tbody>
+                        {cart.products.map((product) => (
+                            <tr className={styles.tableRow} key={product._id}>
+                                <td>
+                                    <div className={styles.imageContainer}>
+                                        <Image alt="Pizza Image" src={product.productImgStr} fill style={{objectFit:"cover"}}/>
+                                    </div>
+                                </td>
+                                <td>
+                                    <span className={styles.prodName}>{product.productName}</span>
+                                </td>
+                                <td>
+                                    <span className={styles.prodToppings}>
+                                        {product.productToppings.map((topping) => (
+                                            <span key={topping._id}>
+                                                {topping.text}, 
+                                            </span>
+                                        ))};
+                                    </span>
+                                </td>
+                                <td>
+                                    <span className={styles.prodPrice}>${product.productPrice}</span>
+                                </td>
+                                <td>
+                                    <span className={styles.prodQuan}>{product.quantity}</span>
+                                </td>
+                                <td>
+                                    <span className={styles.total}>${product.productPrice * product.quantity}</span>
+                                </td>
+                            </tr>
+                        ))};
+                    </tbody>
                 </table>
             </div>
             <div className={styles.right}>
                 <div className={styles.wrapper}>
                     <h2 className={styles.title}>CART TOTAL</h2>
                     <div className={styles.totalText}>
-                        <p className={styles.totalTextTitle}>Subtotal:</p>$22
+                        <p className={styles.totalTextTitle}>Subtotal:</p>${cart.total}
                     </div>
                     <div className={styles.totalText}>
-                        <p className={styles.totalTextTitle}>GST:</p>$2
+                        <p className={styles.totalTextTitle}>GST:</p>${0.1 * cart.total}
                     </div>
                     <div className={styles.totalText}>
-                        <p className={styles.totalTextTitle}>Total:</p>$24
+                        <p className={styles.totalTextTitle}>Total:</p>${1.1 * cart.total}
                     </div>
-                    <button className={styles.button}>CHECK OUT</button>
+                    <button className={styles.button} onClick={SubmitOrder}>CHECK OUT</button>
                 </div>
             </div>
         </div>
