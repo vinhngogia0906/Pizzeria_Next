@@ -34,3 +34,19 @@
 .text {
     color: lightblue;
 }
+@media screen  and (max-width:480px){
+    .container {
+        height: auto;
+        text-align: center;
+    }
+
+   .item {
+    flex-direction: column;
+   }
+   .title {
+    font-size: 30px;
+   }
+   .text {
+    font-size: 20px;
+   }
+}

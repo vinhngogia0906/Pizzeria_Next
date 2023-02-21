@@ -37,7 +37,6 @@
 .toppings {
     display: flex;
     margin-bottom: 30px;
-    flex-direction: column;
 }
 
 .chooseTopp {
@@ -77,4 +76,43 @@
     margin: 10px;
     font-weight: bold;
     font-size: 16px;
+}
+
+@media screen  and (max-width:480px){
+    .container {
+        height: auto;
+        text-align: center;
+        flex-direction: column;
+        margin-top: 20px;
+    }
+
+    .imageContainer {
+        width: 70vw;
+        height: 70vw;
+    }
+
+    .title {
+        margin: 5px;
+    }
+
+    .toppings {
+        flex-direction: column;
+    }
+
+    .option {
+        margin: 10px;
+        font-size: 18px;
+    }
+    .checkbox{
+        width: 25px;
+        height: 25px;
+    }
+    .quantity {
+        width: 80px;
+    }
+
+    .quantity, .button {
+        height: 50px;
+        padding: 10px 20px;
+    }
 }
