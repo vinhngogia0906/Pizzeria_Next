@@ -86,8 +86,11 @@
     align-items: center;
     justify-content: center;
     font-weight: bold;
-    color: #d1411e;
+    font-size: 12px;
+    z-index: 999;
+    color: black;
 }
+
 
 @media screen  and (max-width:480px){
     .item:nth-child(2) {
