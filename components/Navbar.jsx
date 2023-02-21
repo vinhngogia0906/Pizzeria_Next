@@ -18,9 +18,11 @@ const Navbar = () => {
             </div>
             <div className={styles.item}>
                 <ul className={styles.list}>
-                    <li className={styles.listItem}>
-                        Home page
-                    </li>
+                    <Link href="/" passHref>
+                        <li className={styles.listItem}>
+                            Home page
+                        </li>
+                    </Link>
                     <li className={styles.listItem}>
                         Products
                     </li>

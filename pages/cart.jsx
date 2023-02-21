@@ -4,11 +4,14 @@ import Image from "next/image";
 import { useDispatch, useSelector } from "react-redux";
 import { useRouter } from "next/router";
 import { reset } from "@/redux/cartSlice";
+import { useState } from "react";
+import OrderForm from "@/components/OrderForm";
 
 const Cart = () => {
     const dispatch = useDispatch();
     const cart = useSelector((state) => state.cart);
     const router = useRouter();
+    const [checkOut, setCheckOut] = useState(false);
     const createOrder = async (data) => {
         try{
             const res = await axios.post("http://localhost:3000/api/orders", data);
@@ -19,14 +22,6 @@ const Cart = () => {
             console.log(error);
         }
     }
-    const SubmitOrder = () => {
-        createOrder({
-            customer: "Mr. Anderson",
-            address: "From inside the Matrix",
-            total: 1.1 * cart.total,
-            paymentMethod: 0,
-        })
-    };
     return (
         <div className={styles.container}>
             <div className={styles.left}>
@@ -87,11 +82,14 @@ const Cart = () => {
                     <div className={styles.totalText}>
                         <p className={styles.totalTextTitle}>Total:</p>${1.1 * cart.total}
                     </div>
-                    <button className={styles.button} onClick={SubmitOrder}>CHECK OUT</button>
+                    <button className={styles.button} onClick={() => setCheckOut(true)}>CHECK OUT</button>
                 </div>
             </div>
+            {checkOut && (
+                <OrderForm total = {cart.total} createOrder={createOrder}/>
+            )}
         </div>
-    )
+    );
 }
 
 export default Cart;
